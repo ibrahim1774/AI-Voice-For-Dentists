@@ -75,8 +75,16 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           </button>
         </div>
 
+        {/* HIPAA Badge */}
+        <div className="flex items-center justify-center gap-1.5 border-b border-white/10 bg-gold/5 px-4 py-2 shrink-0">
+          <svg className="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span className="text-xs font-semibold tracking-wide text-gold">HIPAA Compliant AI Receptionist</span>
+        </div>
+
         {/* Calendar Widget */}
-        <div style={{ height: "calc(95vh - 72px)", overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+        <div style={{ height: "calc(95vh - 112px)", overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
           <iframe
             src={BOOKING_WIDGET_URL}
             style={{ width: "100%", minHeight: "1200px", border: "none" }}

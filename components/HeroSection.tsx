@@ -49,6 +49,16 @@ export default function HeroSection() {
           below to try a working demo now.
         </p>
 
+        {/* HIPAA Badge */}
+        <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">
+            <svg className="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span className="text-xs font-semibold tracking-wide text-gold">HIPAA Compliant AI Receptionist</span>
+          </div>
+        </div>
+
         {/* Intake Form */}
         <div className="mt-3 md:mt-5">
           <IntakeForm />
