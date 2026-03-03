@@ -145,7 +145,7 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
             "gingivitis:2",
             "implant:2",
             "dentures:2",
-            "X-ray:2",
+            "xray:2",
             "fluoride:2",
             "hygienist:2",
             "copay:2",
