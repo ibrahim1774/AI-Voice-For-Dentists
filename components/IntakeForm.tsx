@@ -116,7 +116,7 @@ export default function IntakeForm() {
   }
 
   const inputClasses =
-    "w-full rounded-xl border border-white/[0.07] bg-charcoal/70 backdrop-blur-sm px-4 py-3 font-sans text-sm text-white placeholder:text-subtle focus:border-gold/40 focus:ring-1 focus:ring-gold/30 focus:bg-charcoal/90 transition-all duration-300";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-sans text-sm text-foreground placeholder:text-subtle focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all duration-300";
 
   return (
     <>
@@ -136,7 +136,7 @@ export default function IntakeForm() {
               autoComplete="organization"
             />
             {errors.practiceName && (
-              <p className="mt-1.5 text-sm text-red-400 font-sans">
+              <p className="mt-1.5 text-sm text-red-500 font-sans">
                 {errors.practiceName}
               </p>
             )}
@@ -154,7 +154,7 @@ export default function IntakeForm() {
               autoComplete="tel"
             />
             {errors.phoneNumber && (
-              <p className="mt-1.5 text-sm text-red-400 font-sans">
+              <p className="mt-1.5 text-sm text-red-500 font-sans">
                 {errors.phoneNumber}
               </p>
             )}
@@ -178,22 +178,22 @@ export default function IntakeForm() {
               ))}
             </select>
             {errors.goal && (
-              <p className="mt-1.5 text-sm text-red-400 font-sans">
+              <p className="mt-1.5 text-sm text-red-500 font-sans">
                 {errors.goal}
               </p>
             )}
           </div>
 
           {apiError && (
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3">
-              <p className="text-sm text-red-400 font-sans">{apiError}</p>
+            <div className="rounded-xl border border-red-300 bg-red-50 px-4 py-3">
+              <p className="text-sm text-red-600 font-sans">{apiError}</p>
             </div>
           )}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-xl bg-gold px-6 py-3.5 font-sans text-sm font-semibold text-background transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="w-full rounded-xl bg-gold px-6 py-3.5 font-sans text-sm font-semibold text-white transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             Generate My AI Dental Receptionist
           </button>

@@ -74,9 +74,9 @@ export default function StickyCartBar() {
       {/* Sticky Bottom Bar */}
       {!isHomePage && !pathname.startsWith("/demo") && !pathname.startsWith("/booking-confirmation") && !pathname.startsWith("/thank-you") && (
         <div
-          className="fixed bottom-0 left-0 right-0 z-40 border-t border-gold/30 bg-background/95 backdrop-blur-md"
+          className="fixed bottom-0 left-0 right-0 z-40 border-t border-gold/20 bg-white/95 backdrop-blur-md"
           style={{
-            boxShadow: "0 -4px 20px rgba(201, 168, 76, 0.15)",
+            boxShadow: "0 -4px 20px rgba(13, 148, 136, 0.08)",
           }}
         >
           <button
@@ -91,7 +91,7 @@ export default function StickyCartBar() {
                 24/7 AI Dental Receptionist
               </span>
             </p>
-            <span className="shrink-0 rounded-lg bg-gold px-5 py-2.5 font-sans text-sm font-semibold text-background transition-all duration-300 hover:bg-gold-light md:px-6">
+            <span className="shrink-0 rounded-lg bg-gold px-5 py-2.5 font-sans text-sm font-semibold text-white transition-all duration-300 hover:bg-gold-light md:px-6">
               Book a Call
             </span>
           </button>
@@ -107,7 +107,7 @@ export default function StickyCartBar() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
           onClick={closeDrawer}
         />
 
@@ -116,7 +116,7 @@ export default function StickyCartBar() {
           className={`absolute bottom-0 left-0 right-0 max-h-[85vh] overflow-y-auto rounded-t-3xl border-t border-gold/20 bg-card custom-scrollbar transition-transform duration-300 ease-out ${isDrawerOpen ? "translate-y-0" : "translate-y-full"
             }`}
           style={{
-            boxShadow: "0 -8px 40px rgba(201, 168, 76, 0.1)",
+            boxShadow: "0 -8px 40px rgba(13, 148, 136, 0.08)",
           }}
         >
           <div className="relative p-6 md:p-10">
@@ -124,7 +124,7 @@ export default function StickyCartBar() {
               {/* Close Button */}
               <button
                 onClick={closeDrawer}
-                className="absolute right-4 top-4 rounded-full p-2 text-subtle transition-colors hover:text-white md:right-6 md:top-6"
+                className="absolute right-4 top-4 rounded-full p-2 text-subtle transition-colors hover:text-foreground md:right-6 md:top-6"
                 aria-label="Close"
               >
                 <svg
@@ -146,7 +146,7 @@ export default function StickyCartBar() {
               <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-gold/40" />
 
               {/* Header */}
-              <h3 className="text-center font-serif text-xl font-bold leading-snug text-white md:text-2xl">
+              <h3 className="text-center font-serif text-xl font-bold leading-snug text-foreground md:text-2xl">
                 A Smart AI Receptionist That Answers Calls &amp; Books Appointments for Your Dental Practice{" "}
                 <span className="text-gold">
                   So You Never Lose a Patient to a Missed Call.
@@ -191,9 +191,9 @@ export default function StickyCartBar() {
                     closeDrawer();
                     setIsBookingOpen(true);
                   }}
-                  className="block w-full rounded-xl bg-gold py-4 text-center font-sans text-base font-semibold text-background transition-all duration-300 hover:bg-gold-light hover:scale-[1.01] active:scale-[0.99]"
+                  className="block w-full rounded-xl bg-gold py-4 text-center font-sans text-base font-semibold text-white transition-all duration-300 hover:bg-gold-light hover:scale-[1.01] active:scale-[0.99]"
                   style={{
-                    boxShadow: "0 0 20px rgba(201, 168, 76, 0.3)",
+                    boxShadow: "0 0 20px rgba(13, 148, 136, 0.2)",
                   }}
                 >
                   Book a Call to Implement This for Your Practice
@@ -216,7 +216,7 @@ export default function StickyCartBar() {
                       className={`px-5 py-3.5 font-sans text-sm ${i % 2 === 0 ? "bg-card" : "bg-charcoal/50"
                         }`}
                     >
-                      <p className="font-medium text-white">{item.feature}</p>
+                      <p className="font-medium text-foreground">{item.feature}</p>
                       <p className="mt-0.5 text-muted">{item.detail}</p>
                     </div>
                   ))}
@@ -224,7 +224,7 @@ export default function StickyCartBar() {
               </div>
 
               <div className="mt-10 text-center">
-                <p className="font-serif text-2xl font-bold text-white md:text-3xl">
+                <p className="font-serif text-2xl font-bold text-foreground md:text-3xl">
                   Ready to Stop Missing Patient Calls?
                 </p>
                 <p className="mt-2 font-sans text-sm text-muted">

@@ -43,20 +43,20 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/80"
+        className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
 
       {/* Modal Panel */}
-      <div className="relative z-10 mx-4 w-full max-w-2xl max-h-[95vh] overflow-hidden rounded-2xl border border-gold/20 bg-card">
+      <div className="relative z-10 mx-4 w-full max-w-2xl max-h-[95vh] overflow-hidden rounded-2xl border border-gold/20 bg-card shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 shrink-0">
-          <h2 className="font-serif text-lg font-bold text-white">
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 shrink-0">
+          <h2 className="font-serif text-lg font-bold text-foreground">
             Book Your Setup Call
           </h2>
           <button
             onClick={onClose}
-            className="rounded-full p-2 text-subtle transition-colors hover:text-white"
+            className="rounded-full p-2 text-subtle transition-colors hover:text-foreground"
             aria-label="Close"
           >
             <svg
@@ -76,7 +76,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         </div>
 
         {/* HIPAA Badge */}
-        <div className="flex items-center justify-center gap-1.5 border-b border-white/10 bg-gold/5 px-4 py-2 shrink-0">
+        <div className="flex items-center justify-center gap-1.5 border-b border-slate-200 bg-gold/5 px-4 py-2 shrink-0">
           <svg className="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>

@@ -22,14 +22,14 @@ export default function PricingTeaser() {
         <ScrollReveal>
           <div className="gold-glow-border rounded-3xl p-10 text-center md:p-14 relative overflow-hidden">
             {/* Subtle radial glow inside card */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.06)_0%,transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(13,148,136,0.04)_0%,transparent_50%)]" />
 
             <div className="relative">
               <p className="font-sans text-sm uppercase tracking-[0.25em] text-gold mb-6">
                 Get Started
               </p>
 
-              <h2 className="font-serif text-4xl font-bold text-white md:text-5xl">
+              <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl">
                 Ready to Never Miss
                 <br />a Patient Call Again?
               </h2>
@@ -66,7 +66,7 @@ export default function PricingTeaser() {
 
               <button
                 onClick={() => setIsBookingOpen(true)}
-                className="mt-10 inline-block rounded-xl bg-gold px-10 py-4 font-sans text-base font-semibold text-background transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] active:scale-[0.98]"
+                className="mt-10 inline-block rounded-xl bg-gold px-10 py-4 font-sans text-base font-semibold text-white transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] active:scale-[0.98]"
               >
                 Book a Call to Implement This for Your Practice
               </button>

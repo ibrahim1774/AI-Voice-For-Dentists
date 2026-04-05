@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 px-4 py-12">
+    <footer className="border-t border-slate-200 px-4 py-12">
       <div className="mx-auto max-w-6xl flex flex-col items-center gap-6 md:flex-row md:justify-between">
         <div className="flex items-center gap-2">
-          <span className="font-serif text-lg font-semibold text-white">
+          <span className="font-serif text-lg font-semibold text-foreground">
             Dental PrimeHub <span className="text-gold">AI</span>
           </span>
         </div>

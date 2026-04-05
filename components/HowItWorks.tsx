@@ -29,7 +29,7 @@ export default function HowItWorks() {
           <p className="font-sans text-sm uppercase tracking-[0.25em] text-gold mb-4">
             How It Works
           </p>
-          <h2 className="font-serif text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+          <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
             Up and Running in{" "}
             <span className="text-gold">60 Seconds</span>
           </h2>
@@ -42,7 +42,7 @@ export default function HowItWorks() {
                 <span className="font-serif text-6xl font-bold text-gold/15">
                   {step.number}
                 </span>
-                <h3 className="mt-4 font-serif text-xl font-semibold text-white md:text-2xl">
+                <h3 className="mt-4 font-serif text-xl font-semibold text-foreground md:text-2xl">
                   {step.title}
                 </h3>
                 <p className="mt-3 font-sans text-muted leading-relaxed">

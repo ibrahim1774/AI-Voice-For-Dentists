@@ -45,7 +45,7 @@ export default function LoadingOverlay({ isVisible }: LoadingOverlayProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm">
       <div className="text-center">
-        {/* Gold spinning ring */}
+        {/* Teal spinning ring */}
         <div className="mx-auto mb-8 h-16 w-16 rounded-full border-4 border-gold/20 border-t-gold animate-spin" />
 
         {/* Animated message */}

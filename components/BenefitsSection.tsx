@@ -106,15 +106,12 @@ const BENEFITS = [
 export default function BenefitsSection() {
   return (
     <section className="px-4 py-28 relative section-glow-divider overflow-hidden">
-      {/* Depth gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,20,20,0.9)_0%,rgba(10,10,10,1)_70%)]" />
-
       <div className="relative mx-auto max-w-6xl">
         <ScrollReveal className="text-center mb-20">
           <p className="font-sans text-sm uppercase tracking-[0.25em] text-gold mb-4">
             The Solution
           </p>
-          <h2 className="font-serif text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+          <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
             Why <span className="text-gold">Dental PrimeHub AI</span>?
           </h2>
         </ScrollReveal>
@@ -123,10 +120,10 @@ export default function BenefitsSection() {
           {BENEFITS.map((benefit) => (
             <ScrollReveal key={benefit.title}>
               <div className="gold-glow-border rounded-2xl p-6 md:p-8 h-full transition-all duration-500">
-                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gold/10 text-gold" style={{ boxShadow: "0 0 12px rgba(201, 168, 76, 0.1)" }}>
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gold/10 text-gold" style={{ boxShadow: "0 0 12px rgba(13, 148, 136, 0.08)" }}>
                   {benefit.icon}
                 </div>
-                <h3 className="font-serif text-lg font-semibold text-white md:text-xl">
+                <h3 className="font-serif text-lg font-semibold text-foreground md:text-xl">
                   {benefit.title}
                 </h3>
                 <p className="mt-2 font-sans text-sm text-muted leading-relaxed">

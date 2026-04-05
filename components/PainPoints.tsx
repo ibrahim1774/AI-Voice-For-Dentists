@@ -30,15 +30,12 @@ const STATS = [
 export default function PainPoints() {
   return (
     <section className="px-4 py-28 relative section-glow-divider overflow-hidden">
-      {/* Depth gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(20,20,20,0.8)_0%,rgba(10,10,10,1)_80%)]" />
-
       <div className="relative mx-auto max-w-6xl">
         <ScrollReveal className="text-center mb-20">
           <p className="font-sans text-sm uppercase tracking-[0.25em] text-gold mb-4">
             The Problem
           </p>
-          <h2 className="font-serif text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+          <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
             Every Missed Call Costs You{" "}
             <span className="text-gold">Money</span>
           </h2>
@@ -51,13 +48,13 @@ export default function PainPoints() {
                 <p className="font-serif text-7xl font-bold text-gold md:text-8xl">
                   {item.stat}
                 </p>
-                <p className="mt-4 font-sans text-xl font-medium text-white">
+                <p className="mt-4 font-sans text-xl font-medium text-foreground">
                   {item.headline}
                 </p>
                 <p className="mt-3 font-sans text-muted leading-relaxed">
                   {item.detail}
                 </p>
-                <div className="mt-6 h-px w-16 bg-gradient-to-r from-gold/40 to-transparent" style={{ boxShadow: "0 0 8px rgba(201, 168, 76, 0.15)" }} />
+                <div className="mt-6 h-px w-16 bg-gradient-to-r from-gold/40 to-transparent" style={{ boxShadow: "0 0 8px rgba(13, 148, 136, 0.1)" }} />
               </div>
             </ScrollReveal>
           ))}
