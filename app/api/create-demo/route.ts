@@ -126,7 +126,7 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
           language: "en-US",
           smartFormat: true,
           endpointing: 300,
-          confidenceThreshold: 0.6,
+          confidenceThreshold: 0.4,
           keywords: [
             // Core dental terms
             "dental:5",
@@ -209,6 +209,9 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
             "member ID",
             "insurance verification",
           ],
+        },
+        backgroundSpeechDenoisingPlan: {
+          smartDenoisingPlan: { enabled: true },
         },
         firstMessage: `Thanks for calling ${body.practiceName}, how can I help you today?`,
         firstMessageMode: "assistant-speaks-first",

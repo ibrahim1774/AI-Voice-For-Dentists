@@ -8,6 +8,7 @@ interface TranscriptEntry {
   role: "assistant" | "user";
   text: string;
   timestamp: number;
+  isFinal: boolean;
 }
 
 type CallStatus = "idle" | "connecting" | "active" | "ended";
@@ -26,6 +27,7 @@ export default function DemoExperience({
   const [error, setError] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [partialText, setPartialText] = useState<{ role: string; text: string } | null>(null);
   const vapiRef = useRef<Vapi | null>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
 
@@ -59,18 +61,21 @@ export default function DemoExperience({
     vapi.on("message", (message: Record<string, unknown>) => {
       if (
         message.type === "transcript" &&
-        message.transcriptType === "final" &&
         typeof message.transcript === "string" &&
         message.transcript.trim()
       ) {
-        setTranscript((prev) => [
-          ...prev,
-          {
-            role: message.role as "assistant" | "user",
-            text: message.transcript as string,
-            timestamp: Date.now(),
-          },
-        ]);
+        const role = message.role as "assistant" | "user";
+        const text = message.transcript as string;
+
+        if (message.transcriptType === "partial") {
+          setPartialText({ role, text });
+        } else if (message.transcriptType === "final") {
+          setPartialText(null);
+          setTranscript((prev) => [
+            ...prev,
+            { role, text, timestamp: Date.now(), isFinal: true },
+          ]);
+        }
       }
     });
 
@@ -279,7 +284,7 @@ export default function DemoExperience({
         </div>
 
         <div ref={scrollableRef} className="flex-1 min-h-0 overflow-y-auto space-y-4 pr-2 custom-scrollbar flex flex-col">
-          {transcript.length === 0 ? (
+          {transcript.length === 0 && !partialText ? (
             <div className="flex-1 flex items-center justify-center">
               <p className="text-subtle font-sans text-sm italic">
                 {callStatus === "active"
@@ -288,24 +293,42 @@ export default function DemoExperience({
               </p>
             </div>
           ) : (
-            transcript.map((entry, index) => (
-              <div
-                key={index}
-                className={
-                  entry.role === "assistant"
-                    ? "transcript-bubble-ai animate-fade-in-up"
-                    : "transcript-bubble-user animate-fade-in-up"
-                }
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <p className="text-[10px] uppercase tracking-wider text-gold/60 mb-1 font-sans font-bold">
-                  {entry.role === "assistant" ? "AI Receptionist" : "You"}
-                </p>
-                <p className="font-sans text-[15px] text-foreground leading-relaxed">
-                  {entry.text}
-                </p>
-              </div>
-            ))
+            <>
+              {transcript.map((entry, index) => (
+                <div
+                  key={index}
+                  className={
+                    entry.role === "assistant"
+                      ? "transcript-bubble-ai animate-fade-in-up"
+                      : "transcript-bubble-user animate-fade-in-up"
+                  }
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <p className="text-[10px] uppercase tracking-wider text-gold/60 mb-1 font-sans font-bold">
+                    {entry.role === "assistant" ? "AI Receptionist" : "You"}
+                  </p>
+                  <p className="font-sans text-[15px] text-foreground leading-relaxed">
+                    {entry.text}
+                  </p>
+                </div>
+              ))}
+              {partialText && (
+                <div
+                  className={
+                    partialText.role === "assistant"
+                      ? "transcript-bubble-ai"
+                      : "transcript-bubble-user"
+                  }
+                >
+                  <p className="text-[10px] uppercase tracking-wider text-gold/60 mb-1 font-sans font-bold">
+                    {partialText.role === "assistant" ? "AI Receptionist" : "You"}
+                  </p>
+                  <p className="font-sans text-[15px] text-muted leading-relaxed italic">
+                    {partialText.text}
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
