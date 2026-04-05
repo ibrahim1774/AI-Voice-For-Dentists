@@ -37,9 +37,8 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto max-w-4xl w-full text-center">
         {/* Main headline */}
         <h1 className="font-serif text-xl font-bold leading-[1.2] text-foreground sm:text-2xl md:text-3xl lg:text-4xl">
-          Your 24/7 AI Dental Receptionist: Custom Demo Built{" "}
-          <span className="text-gold bg-gold/10 px-2 py-0.5 rounded-lg">in 20 Seconds</span>{" "}
-          <span className="text-gold">— Don&apos;t Lose a Patient to a Missed Call</span>
+          Stop Losing Dental Patients to Missed Calls —{" "}
+          <span className="text-gold bg-gold/10 px-2 py-0.5 rounded-lg">Generate Custom Demo In 20 Seconds</span>
         </h1>
 
         {/* Subtext */}
