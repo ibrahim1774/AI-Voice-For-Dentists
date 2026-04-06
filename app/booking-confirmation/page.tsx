@@ -93,7 +93,7 @@ export default function BookingConfirmationPage() {
 
         <div className="mt-8">
           <a
-            href="/"
+            href="https://lavine.live"
             className="inline-block rounded-xl border border-gold/30 bg-transparent px-8 py-4 font-sans text-base font-semibold text-gold transition-all duration-300 hover:bg-gold/10 hover:scale-[1.02] active:scale-[0.98]"
           >
             Back to Home
