@@ -116,14 +116,14 @@ export default function IntakeForm() {
   }
 
   const inputClasses =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-sans text-sm text-foreground placeholder:text-subtle focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all duration-300";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-sans text-sm text-foreground placeholder:text-subtle focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all duration-300";
 
   return (
     <>
       <LoadingOverlay isVisible={isLoading} />
 
-      <div className="gold-glow-border mx-auto max-w-lg rounded-2xl p-5 md:p-8 transition-all duration-500">
-        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4 text-left">
+      <div className="gold-glow-border mx-auto max-w-lg rounded-2xl p-6 md:p-8 transition-all duration-500">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-4 text-left">
           {/* Practice Name */}
           <div>
             <input
