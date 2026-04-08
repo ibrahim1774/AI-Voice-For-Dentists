@@ -37,25 +37,31 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto max-w-4xl w-full text-center">
         {/* Main headline */}
         <h1 className="font-serif text-2xl font-bold leading-[1.25] text-foreground sm:text-3xl md:text-3xl lg:text-4xl">
-          Stop Losing Dental Patients to Missed Calls —{" "}
+          New York City Dentists: Stop Losing Patients to Missed Calls —{" "}
           <span className="text-gold bg-gold/10 px-2 py-0.5 rounded-lg">Generate Custom Demo In 20 Seconds</span>
         </h1>
 
         {/* Subtext */}
         <p className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed text-muted md:mt-4 md:text-sm">
-          Every missed call is a lost patient. Your AI receptionist answers
-          24/7 — booking appointments, handling insurance questions, and
-          managing emergencies while you&apos;re chairside. Enter your details
-          below to try a working demo now.
+          When you miss a call, you lose a patient. Our AI receptionist picks up
+          every call, day and night. It books appointments, answers questions, and
+          handles emergencies — all while keeping patient data safe and HIPAA compliant.
+          Try a free sample below. We&apos;ll build one fully custom for your practice.
         </p>
 
-        {/* HIPAA Badge */}
-        <div className="mt-4 flex items-center justify-center gap-2 md:mt-5">
+        {/* HIPAA + Custom Badges */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 md:mt-5">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">
             <svg className="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
-            <span className="text-xs font-semibold tracking-wide text-gold">HIPAA Compliant AI Receptionist</span>
+            <span className="text-xs font-semibold tracking-wide text-gold">HIPAA Compliant</span>
+          </div>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">
+            <svg className="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+            <span className="text-xs font-semibold tracking-wide text-gold">Custom-Built for Your Practice</span>
           </div>
         </div>
 

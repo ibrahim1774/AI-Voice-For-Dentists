@@ -150,15 +150,31 @@ export default function DemoExperience({
         </div>
 
         <h1 className="font-serif text-xl font-bold text-foreground md:text-3xl">
-          Your AI Dental Receptionist is Ready,{" "}
+          Your NYC AI Dental Receptionist is Ready,{" "}
           <span className="text-gold">{practiceName}</span>
         </h1>
 
         <p className="mt-2 font-sans text-sm text-muted max-w-lg mx-auto leading-relaxed">
-          Start a live call with your custom AI dental receptionist. Speak
-          naturally — try booking a cleaning, ask about insurance, or see how it
-          handles a dental emergency.
+          Talk to your AI receptionist right now. Try booking a cleaning,
+          asking about insurance, or testing a dental emergency. It&apos;s HIPAA
+          compliant and keeps patient data safe.
         </p>
+
+        {/* HIPAA + Custom Badges */}
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">
+            <svg className="h-3.5 w-3.5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span className="text-[11px] font-semibold tracking-wide text-gold">HIPAA Compliant</span>
+          </div>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">
+            <svg className="h-3.5 w-3.5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+            <span className="text-[11px] font-semibold tracking-wide text-gold">Custom-Built for Your Practice</span>
+          </div>
+        </div>
       </div>
 
       {/* Call Controls */}
@@ -248,9 +264,12 @@ export default function DemoExperience({
       </div>
 
       {/* Sample disclaimer */}
-      <p className="text-center font-sans text-xs text-red-500/80 mb-3 shrink-0 max-w-md mx-auto leading-relaxed">
-        This is a sample receptionist based on limited info. Book a call and we&apos;ll fully customize it to your practice.
-      </p>
+      <div className="mb-3 shrink-0 max-w-md mx-auto rounded-lg border border-gold/20 bg-gold/5 px-4 py-2 text-center">
+        <p className="font-sans text-xs text-foreground leading-relaxed">
+          This is just a <span className="font-semibold">sample</span> based on basic info.
+          Book a call and we&apos;ll build one <span className="font-semibold text-gold">100% custom to your practice</span> — your services, your hours, your team.
+        </p>
+      </div>
 
       {/* Active call indicator */}
       {callStatus === "active" && (
