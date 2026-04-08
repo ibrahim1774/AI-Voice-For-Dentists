@@ -72,7 +72,7 @@ export default function IntakeForm() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         }),
-        fetch("https://hook.us2.make.com/1ijk41d5vdixvoedkr13qliymoyv2x2w", {
+        fetch("https://hook.us2.make.com/grfdvnf6covrw9ptif6rwl4kef9kp3hv", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
