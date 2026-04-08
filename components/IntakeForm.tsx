@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import LoadingOverlay from "./LoadingOverlay";
 
@@ -28,6 +28,19 @@ const MINIMUM_LOADING_TIME = 4500;
 
 export default function IntakeForm() {
   const router = useRouter();
+  const [utmParams, setUtmParams] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const params: Record<string, string> = {};
+    const url = new URL(window.location.href);
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid"];
+    keys.forEach((key) => {
+      const val = url.searchParams.get(key);
+      if (val) params[key] = val;
+    });
+    setUtmParams(params);
+  }, []);
+
   const [formData, setFormData] = useState<FormData>({
     practiceName: "",
     phoneNumber: "",
@@ -79,6 +92,7 @@ export default function IntakeForm() {
             businessName: formData.practiceName,
             phoneNumber: formData.phoneNumber,
             businessDescription: formData.goal,
+            ...utmParams,
           }),
         }).catch(() => {}),
         new Promise((resolve) => setTimeout(resolve, MINIMUM_LOADING_TIME)),
