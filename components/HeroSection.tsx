@@ -43,10 +43,9 @@ export default function HeroSection() {
 
         {/* Subtext */}
         <p className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed text-muted md:mt-4 md:text-sm">
-          When you miss a call, you lose a patient. Our AI receptionist picks up
-          every call, day and night. It books appointments, answers questions, and
-          handles emergencies — all while keeping patient data safe and HIPAA compliant.
-          Try a free sample below. We&apos;ll build one fully custom for your practice.
+          Missed calls = lost patients. Our HIPAA-compliant AI receptionist answers
+          24/7, books appointments, and handles emergencies for you. Try a free
+          sample below — we&apos;ll build one fully custom for your practice.
         </p>
 
         {/* HIPAA + Custom Badges */}
