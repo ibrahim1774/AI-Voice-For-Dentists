@@ -43,9 +43,9 @@ export default function HeroSection() {
 
         {/* Subtext */}
         <p className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed text-muted md:mt-4 md:text-sm">
-          Missed calls = lost patients. Our HIPAA-compliant AI receptionist answers
-          24/7, books appointments, and handles emergencies for you. Try a free
-          sample below — we&apos;ll build one fully custom for your practice.
+          NYC dentists: missed calls = lost patients. Our HIPAA-compliant AI
+          receptionist answers 24/7, books appointments, and handles emergencies
+          for you. Try a free sample below — we&apos;ll build one fully custom for your practice.
         </p>
 
         {/* HIPAA + Custom Badges */}
