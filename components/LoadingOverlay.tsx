@@ -7,9 +7,11 @@ interface LoadingOverlayProps {
 }
 
 const LOADING_MESSAGES = [
-  { text: "Analyzing your dental practice...", duration: 1500 },
-  { text: "Training your AI dental receptionist...", duration: 2000 },
-  { text: "Almost ready...", duration: 1000 },
+  { text: "Analyzing your dental practice...", duration: 4000 },
+  { text: "Building your custom AI receptionist...", duration: 5000 },
+  { text: "Training on dental knowledge...", duration: 5000 },
+  { text: "Setting up your phone system...", duration: 5000 },
+  { text: "Final touches — almost there...", duration: 6000 },
 ];
 
 export default function LoadingOverlay({ isVisible }: LoadingOverlayProps) {
@@ -44,28 +46,40 @@ export default function LoadingOverlay({ isVisible }: LoadingOverlayProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm">
-      <div className="text-center">
+      <div className="text-center max-w-sm mx-auto px-6">
         {/* Teal spinning ring */}
-        <div className="mx-auto mb-8 h-16 w-16 rounded-full border-4 border-gold/20 border-t-gold animate-spin" />
+        <div className="mx-auto mb-6 h-16 w-16 rounded-full border-4 border-gold/20 border-t-gold animate-spin" />
 
         {/* Animated message */}
         <p
           key={fadeKey}
-          className="text-xl font-sans text-gold animate-fade-in-up"
+          className="text-lg font-sans font-semibold text-foreground animate-fade-in-up md:text-xl"
         >
           {LOADING_MESSAGES[messageIndex].text}
         </p>
 
         {/* Progress dots */}
-        <div className="mt-6 flex justify-center gap-2">
+        <div className="mt-5 flex justify-center gap-2">
           {LOADING_MESSAGES.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 w-1.5 rounded-full transition-colors duration-500 ${
+              className={`h-2 w-2 rounded-full transition-colors duration-500 ${
                 i <= messageIndex ? "bg-gold" : "bg-gold/20"
               }`}
             />
           ))}
+        </div>
+
+        {/* Time estimate */}
+        <p className="mt-5 font-sans text-sm text-muted">
+          This takes about 20–30 seconds
+        </p>
+
+        {/* Warning */}
+        <div className="mt-4 rounded-lg border border-gold/20 bg-gold/5 px-4 py-2.5">
+          <p className="font-sans text-xs font-medium text-gold">
+            Please don&apos;t leave this page — your receptionist is being built!
+          </p>
         </div>
       </div>
     </div>
