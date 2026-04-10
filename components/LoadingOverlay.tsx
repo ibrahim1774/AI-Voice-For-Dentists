@@ -70,6 +70,10 @@ export default function LoadingOverlay({ isVisible }: LoadingOverlayProps) {
           ))}
         </div>
 
+        <p className="mx-auto mt-8 max-w-xs font-sans text-xs text-muted leading-relaxed">
+          Please do not move away from this page or your custom demo won&apos;t generate.
+        </p>
+
         {/* Time estimate */}
         <p className="mt-5 font-sans text-sm text-muted">
           This takes about 20–30 seconds

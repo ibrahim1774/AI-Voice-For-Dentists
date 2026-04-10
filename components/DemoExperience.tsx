@@ -160,6 +160,10 @@ export default function DemoExperience({
           compliant and keeps patient data safe.
         </p>
 
+        <p className="mt-2 font-sans text-xs text-red-400 max-w-lg mx-auto leading-relaxed">
+          Note: Please allow access to your microphone when prompted — the demo requires it to work. If denied, the call will fail.
+        </p>
+
         {/* HIPAA + Custom Badges */}
         <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1">

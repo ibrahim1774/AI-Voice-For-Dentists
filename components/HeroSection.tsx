@@ -37,15 +37,15 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto max-w-4xl w-full text-center">
         {/* Main headline */}
         <h1 className="font-serif text-2xl font-bold leading-[1.25] text-foreground sm:text-3xl md:text-3xl lg:text-4xl">
-          NYC Dentists: Stop Losing Patients to Missed Calls —{" "}
-          <span className="text-gold bg-gold/10 px-2 py-0.5 rounded-lg">Generate Custom Demo In 20 Seconds</span>
+          Dentists: Stop missing calls. Start booking patients —{" "}
+          <span className="text-gold">even at 2am.</span>
         </h1>
 
         {/* Subtext */}
         <p className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed text-muted md:mt-4 md:text-sm">
-          Missed calls = lost patients. Our HIPAA-compliant AI receptionist answers
-          24/7, books appointments, and handles emergencies for you. Try a free
-          sample below — we&apos;ll build one fully custom for your practice.
+          An AI receptionist that answers your phone, talks to patients, and books
+          appointments while you&apos;re chairside. Enter your info below and hear
+          a live demo in about 20 seconds.
         </p>
 
         {/* HIPAA + Custom Badges */}

@@ -4,24 +4,28 @@ import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import LoadingOverlay from "./LoadingOverlay";
 
-const GOALS = [
-  "Book Appointments",
-  "Answer Patient Questions",
-  "Handle Dental Emergencies",
-  "Recall & Reactivation",
-  "Full Front Desk Coverage",
+const INDUSTRIES = [
+  "General Dentistry",
+  "Cosmetic",
+  "Orthodontics",
+  "Pediatric",
+  "Implants",
+  "Emergency Dental",
+  "Oral Surgery",
+  "Periodontics",
 ];
 
 interface FormData {
   practiceName: string;
   phoneNumber: string;
-  goal: string;
+  industry: string;
+  voiceGender: "female" | "male";
 }
 
 interface FormErrors {
   practiceName?: string;
   phoneNumber?: string;
-  goal?: string;
+  industry?: string;
 }
 
 const MINIMUM_LOADING_TIME = 4500;
@@ -29,6 +33,8 @@ const MINIMUM_LOADING_TIME = 4500;
 export default function IntakeForm() {
   const router = useRouter();
   const [utmParams, setUtmParams] = useState<Record<string, string>>({});
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [industryFocused, setIndustryFocused] = useState(false);
 
   useEffect(() => {
     const params: Record<string, string> = {};
@@ -41,10 +47,18 @@ export default function IntakeForm() {
     setUtmParams(params);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % INDUSTRIES.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, []);
+
   const [formData, setFormData] = useState<FormData>({
     practiceName: "",
     phoneNumber: "",
-    goal: "",
+    industry: "",
+    voiceGender: "female",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -62,8 +76,8 @@ export default function IntakeForm() {
       newErrors.phoneNumber = "Enter a valid phone number";
     }
 
-    if (!formData.goal) {
-      newErrors.goal = "Please select a goal";
+    if (!formData.industry.trim()) {
+      newErrors.industry = "Please enter your industry";
     }
 
     setErrors(newErrors);
@@ -91,7 +105,8 @@ export default function IntakeForm() {
           body: JSON.stringify({
             businessName: formData.practiceName,
             phoneNumber: formData.phoneNumber,
-            businessDescription: formData.goal,
+            industry: formData.industry,
+            voiceGender: formData.voiceGender,
             ...utmParams,
           }),
         }).catch(() => {}),
@@ -174,28 +189,50 @@ export default function IntakeForm() {
             )}
           </div>
 
-          {/* Goal */}
+          {/* Industry */}
           <div>
-            <select
-              name="goal"
-              value={formData.goal}
+            <input
+              type="text"
+              name="industry"
+              placeholder={industryFocused ? "" : INDUSTRIES[placeholderIndex]}
+              value={formData.industry}
               onChange={handleChange}
-              className={`${inputClasses} ${!formData.goal ? "text-subtle" : ""}`}
-            >
-              <option value="" disabled>
-                What&apos;s the #1 goal for your AI receptionist?
-              </option>
-              {GOALS.map((goal) => (
-                <option key={goal} value={goal}>
-                  {goal}
-                </option>
-              ))}
-            </select>
-            {errors.goal && (
+              onFocus={() => setIndustryFocused(true)}
+              onBlur={() => setIndustryFocused(false)}
+              className={inputClasses}
+              autoComplete="off"
+            />
+            {errors.industry && (
               <p className="mt-1.5 text-sm text-red-500 font-sans">
-                {errors.goal}
+                {errors.industry}
               </p>
             )}
+          </div>
+
+          {/* Voice Gender Toggle */}
+          <div className="flex items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setFormData((prev) => ({ ...prev, voiceGender: "female" }))}
+              className={`rounded-full px-5 py-2 font-sans text-sm font-medium transition-all duration-300 ${
+                formData.voiceGender === "female"
+                  ? "bg-gold text-white"
+                  : "border border-slate-200 bg-white text-foreground"
+              }`}
+            >
+              Female Voice
+            </button>
+            <button
+              type="button"
+              onClick={() => setFormData((prev) => ({ ...prev, voiceGender: "male" }))}
+              className={`rounded-full px-5 py-2 font-sans text-sm font-medium transition-all duration-300 ${
+                formData.voiceGender === "male"
+                  ? "bg-gold text-white"
+                  : "border border-slate-200 bg-white text-foreground"
+              }`}
+            >
+              Male Voice
+            </button>
           </div>
 
           {apiError && (
@@ -209,8 +246,12 @@ export default function IntakeForm() {
             disabled={isLoading}
             className="w-full rounded-xl bg-gold px-6 py-3.5 font-sans text-sm font-semibold text-white transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
-            Generate My AI Dental Receptionist
+            HEAR MY LIVE DEMO &rarr;
           </button>
+
+          <p className="text-center font-sans text-xs text-muted">
+            Free. No commitment. Just listen.
+          </p>
         </form>
       </div>
     </>

@@ -20,7 +20,8 @@ const DENTAL_KNOWLEDGE = {
 interface CreateDemoRequest {
   practiceName: string;
   phoneNumber: string;
-  goal: string;
+  industry: string;
+  voiceGender?: "female" | "male";
 }
 
 export async function POST(request: NextRequest) {
@@ -43,14 +44,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!body.goal?.trim()) {
+    if (!body.industry?.trim()) {
       return NextResponse.json(
-        { error: "Please select a goal" },
+        { error: "Please enter your industry" },
         { status: 400 }
       );
     }
 
-    const primaryGoal = body.goal;
+    const industry = body.industry;
+
+    const voiceId = body.voiceGender === "male"
+      ? "iP95p4xoKVk53GoZ742B"
+      : "paula";
 
     // Step 1: Generate custom dental receptionist system prompt with Claude
     const claudeResponse = await anthropic.messages.create({
@@ -62,10 +67,11 @@ export async function POST(request: NextRequest) {
           content: `You are an expert at creating AI receptionist system prompts for dental practices. Generate a custom system prompt for this dental practice:
 
 Dental Practice Name: "${body.practiceName}"
+Industry / Specialty: "${industry}"
 
 This receptionist answers phone calls for this dental practice. Here is what you need to know:
 
-Primary goal selected by the practice: ${primaryGoal}
+Primary goal: ${DENTAL_KNOWLEDGE.primaryGoal}
 Information to gather from callers: ${DENTAL_KNOWLEDGE.keyInfo}
 Common caller scenarios to handle: ${DENTAL_KNOWLEDGE.scenarios}
 How to handle pricing questions: ${DENTAL_KNOWLEDGE.pricingBehavior}
@@ -77,7 +83,7 @@ The system prompt you generate must:
 2. Sound like a real human dental receptionist — use contractions, casual phrasing, and a friendly, reassuring tone
 3. Follow the dental-specific booking flow above — ask the right questions in a natural conversational order, not all at once
 4. Ask ONE question at a time, wait for the answer, then ask the next
-5. Always work toward the primary goal: "${primaryGoal}" — prioritize this above all else in every conversation
+5. Always work toward the primary goal: booking an appointment — prioritize this above all else in every conversation
 6. Handle the common dental scenarios listed above naturally — be especially empathetic with patients in pain or dental emergencies
 7. Use the pricing guidance above when pricing comes up — never make up specific prices
 8. Keep every response to 1-3 sentences max — this is a phone call, not an email
@@ -85,6 +91,11 @@ The system prompt you generate must:
 10. Always capture the caller's name and callback number before ending the call
 11. Never mention being AI unless directly asked
 12. Never fabricate information about the practice — don't make up dentist names, office hours, or specific services not mentioned
+13. Match the caller's energy level — if they're upbeat, be upbeat; if they're concerned, be calm and reassuring
+14. Use natural filler words occasionally (like "sure," "absolutely," "of course," "great") to sound more human
+15. Inject light, appropriate wit when the conversation allows — keep it warm and professional
+16. Show genuine enthusiasm when a patient wants to book or is interested in a service
+17. Use emotion tags like [warm], [reassuring], [enthusiastic] in appropriate places to guide vocal delivery
 
 Return ONLY the system prompt text. No markdown formatting, no explanations, no quotation marks wrapping it.`,
         },
@@ -118,7 +129,12 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
         },
         voice: {
           provider: "11labs",
-          voiceId: "paula",
+          voiceId: voiceId,
+          stability: 0.25,
+          similarityBoost: 0.88,
+          style: 0.8,
+          useSpeakerBoost: true,
+          model: "eleven_turbo_v2_5",
         },
         transcriber: {
           provider: "deepgram",
