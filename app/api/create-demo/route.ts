@@ -135,7 +135,7 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
           voiceId: voiceId,
           model: "sonic-3",
         },
-        fillerInjectionEnabled: true,
+
         transcriber: {
           provider: "deepgram",
           model: "nova-3",
