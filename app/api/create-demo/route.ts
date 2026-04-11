@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
     const goal = body.goal;
 
     const voiceId = body.voiceGender === "male"
-      ? "iP95p4xoKVk53GoZ742B"
-      : "paula";
+      ? "95856005-0332-41b0-935f-352e296aa0df"
+      : "f786b574-daa5-4673-aa0c-cbe3e8534c02";
 
     // Step 1: Generate custom dental receptionist system prompt with Claude
     const claudeResponse = await anthropic.messages.create({
@@ -96,6 +96,9 @@ The system prompt you generate must:
 15. Inject light, appropriate wit when the conversation allows — keep it warm and professional
 16. Show genuine enthusiasm when a patient wants to book or is interested in a service
 17. Use emotion tags like [warm], [reassuring], [enthusiastic] in appropriate places to guide vocal delivery
+18. When a patient describes pain or an emergency, respond with genuine warmth and concern — slow your pace, use a softer tone
+19. When a patient wants to book or is excited about a service, match their energy with real enthusiasm
+20. Vary your speaking pace naturally — don't speak at the same speed throughout the call
 
 Return ONLY the system prompt text. No markdown formatting, no explanations, no quotation marks wrapping it.`,
         },
@@ -128,14 +131,11 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
           maxTokens: 300,
         },
         voice: {
-          provider: "11labs",
+          provider: "cartesia",
           voiceId: voiceId,
-          stability: 0.25,
-          similarityBoost: 0.88,
-          style: 0.8,
-          useSpeakerBoost: true,
-          model: "eleven_turbo_v2_5",
+          model: "sonic-3",
         },
+        fillerInjectionEnabled: true,
         transcriber: {
           provider: "deepgram",
           model: "nova-3",
