@@ -4,28 +4,25 @@ import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import LoadingOverlay from "./LoadingOverlay";
 
-const INDUSTRIES = [
-  "General Dentistry",
-  "Cosmetic",
-  "Orthodontics",
-  "Pediatric",
-  "Implants",
-  "Emergency Dental",
-  "Oral Surgery",
-  "Periodontics",
+const GOALS = [
+  "Book Appointments",
+  "Answer Patient Questions",
+  "Handle Dental Emergencies",
+  "Recall & Reactivation",
+  "Full Front Desk Coverage",
 ];
 
 interface FormData {
   practiceName: string;
   phoneNumber: string;
-  industry: string;
+  goal: string;
   voiceGender: "female" | "male";
 }
 
 interface FormErrors {
   practiceName?: string;
   phoneNumber?: string;
-  industry?: string;
+  goal?: string;
 }
 
 const MINIMUM_LOADING_TIME = 4500;
@@ -33,8 +30,6 @@ const MINIMUM_LOADING_TIME = 4500;
 export default function IntakeForm() {
   const router = useRouter();
   const [utmParams, setUtmParams] = useState<Record<string, string>>({});
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const [industryFocused, setIndustryFocused] = useState(false);
 
   useEffect(() => {
     const params: Record<string, string> = {};
@@ -47,17 +42,10 @@ export default function IntakeForm() {
     setUtmParams(params);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPlaceholderIndex((prev) => (prev + 1) % INDUSTRIES.length);
-    }, 1800);
-    return () => clearInterval(interval);
-  }, []);
-
   const [formData, setFormData] = useState<FormData>({
     practiceName: "",
     phoneNumber: "",
-    industry: "",
+    goal: "",
     voiceGender: "female",
   });
   const [errors, setErrors] = useState<FormErrors>({});
@@ -76,8 +64,8 @@ export default function IntakeForm() {
       newErrors.phoneNumber = "Enter a valid phone number";
     }
 
-    if (!formData.industry.trim()) {
-      newErrors.industry = "Please enter your industry";
+    if (!formData.goal.trim()) {
+      newErrors.goal = "Please select a goal";
     }
 
     setErrors(newErrors);
@@ -105,7 +93,7 @@ export default function IntakeForm() {
           body: JSON.stringify({
             businessName: formData.practiceName,
             phoneNumber: formData.phoneNumber,
-            industry: formData.industry,
+            goal: formData.goal,
             voiceGender: formData.voiceGender,
             ...utmParams,
           }),
@@ -189,22 +177,26 @@ export default function IntakeForm() {
             )}
           </div>
 
-          {/* Industry */}
+          {/* Goal */}
           <div>
-            <input
-              type="text"
-              name="industry"
-              placeholder={industryFocused ? "" : INDUSTRIES[placeholderIndex]}
-              value={formData.industry}
+            <select
+              name="goal"
+              value={formData.goal}
               onChange={handleChange}
-              onFocus={() => setIndustryFocused(true)}
-              onBlur={() => setIndustryFocused(false)}
-              className={inputClasses}
-              autoComplete="off"
-            />
-            {errors.industry && (
+              className={`${inputClasses} ${!formData.goal ? "text-subtle" : ""}`}
+            >
+              <option value="" disabled>
+                What&apos;s the #1 goal for your AI receptionist?
+              </option>
+              {GOALS.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+            </select>
+            {errors.goal && (
               <p className="mt-1.5 text-sm text-red-500 font-sans">
-                {errors.industry}
+                {errors.goal}
               </p>
             )}
           </div>

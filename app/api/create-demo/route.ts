@@ -20,7 +20,7 @@ const DENTAL_KNOWLEDGE = {
 interface CreateDemoRequest {
   practiceName: string;
   phoneNumber: string;
-  industry: string;
+  goal: string;
   voiceGender?: "female" | "male";
 }
 
@@ -44,14 +44,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!body.industry?.trim()) {
+    if (!body.goal?.trim()) {
       return NextResponse.json(
-        { error: "Please enter your industry" },
+        { error: "Please select a goal" },
         { status: 400 }
       );
     }
 
-    const industry = body.industry;
+    const goal = body.goal;
 
     const voiceId = body.voiceGender === "male"
       ? "iP95p4xoKVk53GoZ742B"
@@ -67,9 +67,9 @@ export async function POST(request: NextRequest) {
           content: `You are an expert at creating AI receptionist system prompts for dental practices. Generate a custom system prompt for this dental practice:
 
 Dental Practice Name: "${body.practiceName}"
-Industry / Specialty: "${industry}"
+Goal: "${goal}"
 
-This receptionist answers phone calls for this dental practice. Here is what you need to know:
+This receptionist answers phone calls for this dental practice. The practice's #1 goal for their AI receptionist is: ${goal}. Here is what you need to know:
 
 Primary goal: ${DENTAL_KNOWLEDGE.primaryGoal}
 Information to gather from callers: ${DENTAL_KNOWLEDGE.keyInfo}
