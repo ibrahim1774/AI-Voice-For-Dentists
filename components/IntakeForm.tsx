@@ -4,6 +4,12 @@ import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import LoadingOverlay from "./LoadingOverlay";
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 const GOALS = [
   "Book Appointments",
   "Answer Patient Questions",
@@ -77,6 +83,14 @@ export default function IntakeForm() {
     setApiError(null);
 
     if (!validate()) return;
+
+    // Fire Facebook Lead event
+    if (window.fbq) {
+      window.fbq("track", "Lead", {
+        content_name: formData.practiceName,
+        content_category: formData.goal,
+      });
+    }
 
     setIsLoading(true);
 
