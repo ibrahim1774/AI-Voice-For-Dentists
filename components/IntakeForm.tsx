@@ -84,11 +84,16 @@ export default function IntakeForm() {
 
     if (!validate()) return;
 
-    // Fire Facebook Lead event
+    // Generate event ID for deduplication between client + server
+    const leadEventId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+
+    // Fire Facebook Lead event (client-side)
     if (window.fbq) {
       window.fbq("track", "Lead", {
         content_name: formData.practiceName,
         content_category: formData.goal,
+      }, {
+        eventID: leadEventId,
       });
     }
 
@@ -110,6 +115,15 @@ export default function IntakeForm() {
             goal: formData.goal,
             voiceGender: formData.voiceGender,
             ...utmParams,
+          }),
+        }).catch(() => {}),
+        // Server-side Lead event for better match quality
+        fetch("/api/meta-lead-conversion", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phoneNumber: formData.phoneNumber,
+            eventId: leadEventId,
           }),
         }).catch(() => {}),
         new Promise((resolve) => setTimeout(resolve, MINIMUM_LOADING_TIME)),

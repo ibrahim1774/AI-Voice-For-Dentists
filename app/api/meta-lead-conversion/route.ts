@@ -14,19 +14,33 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const body = await request.json();
+    const { phoneNumber, eventId } = body;
+
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "";
     const userAgent = request.headers.get("user-agent") || "";
+
+    // Hash phone number (strip non-digits, add country code if missing)
+    let normalizedPhone = (phoneNumber || "").replace(/\D/g, "");
+    if (normalizedPhone.length === 10) {
+      normalizedPhone = "1" + normalizedPhone; // US country code
+    }
+    const hashedPhone = normalizedPhone
+      ? createHash("sha256").update(normalizedPhone).digest("hex")
+      : undefined;
 
     const eventData = {
       data: [
         {
-          event_name: "Schedule",
+          event_name: "Lead",
           event_time: Math.floor(Date.now() / 1000),
+          event_id: eventId,
           action_source: "website",
           event_source_url: request.headers.get("referer") || "",
           user_data: {
             client_ip_address: ip,
             client_user_agent: userAgent,
+            ...(hashedPhone && { ph: [hashedPhone] }),
           },
         },
       ],
