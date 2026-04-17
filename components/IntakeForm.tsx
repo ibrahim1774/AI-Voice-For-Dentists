@@ -189,7 +189,7 @@ export default function IntakeForm() {
             spellCheck={true}
           />
 
-          <div className="flex items-center justify-end gap-3 px-4 pb-4 pt-2">
+          <div className="flex items-center justify-center gap-3 px-4 pb-4 pt-2">
             <button
               type="submit"
               disabled={isLoading}
