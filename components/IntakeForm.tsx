@@ -168,6 +168,7 @@ export default function IntakeForm() {
           {showTypewriter && (
             <div className="pointer-events-none absolute inset-x-0 top-0 px-6 pt-6 text-left">
               <p className="font-sans text-base leading-relaxed text-subtle md:text-lg">
+                <em className="italic text-zinc-500">Example prompt:</em>{" "}
                 {typedText}
                 <span className="typewriter-caret" style={{ height: "1.1em", verticalAlign: "text-bottom" }} />
               </p>
@@ -197,7 +198,7 @@ export default function IntakeForm() {
               disabled={isLoading}
               className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 font-sans text-sm font-medium text-background transition-all duration-200 hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Generate Demo
+              Generate Live Demo Now
               <svg
                 className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                 viewBox="0 0 24 24"
