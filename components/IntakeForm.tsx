@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import LoadingOverlay from "./LoadingOverlay";
 
 declare global {
@@ -26,7 +26,6 @@ const HOLD_AFTER_ERASE_MS = 400;
 
 export default function IntakeForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -38,18 +37,19 @@ export default function IntakeForm() {
   const [phase, setPhase] = useState<"typing" | "holding" | "erasing" | "waiting">("typing");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Capture UTM params + fbclid from URL on mount
+  // Capture UTM params + fbclid from URL on mount (client-only, no Suspense needed)
   const utmParamsRef = useRef<Record<string, string>>({});
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
     const params: Record<string, string> = {};
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid"].forEach(
       (key) => {
-        const value = searchParams.get(key);
+        const value = urlParams.get(key);
         if (value) params[key] = value;
       }
     );
     utmParamsRef.current = params;
-  }, [searchParams]);
+  }, []);
 
   // Typewriter animation loop
   useEffect(() => {
