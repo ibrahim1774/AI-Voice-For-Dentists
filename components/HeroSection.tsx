@@ -23,8 +23,8 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-4xl flex-col items-center justify-center px-5 py-24 text-center">
         {/* Main headline */}
         <h1 className="font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-[56px]">
-          <span className="text-muted">Generate Your Custom AI Dentist Receptionist Demo</span>{" "}
-          <span className="font-bold text-foreground">in 20 Seconds</span>
+          <span className="text-muted">Generate Your Custom AI Dentist Receptionist</span>{" "}
+          <span className="font-bold text-foreground">Live Demo in 20 Seconds</span>
         </h1>
 
         {/* Subtext */}
