@@ -18,100 +18,84 @@ const DENTAL_KNOWLEDGE = {
 };
 
 interface CreateDemoRequest {
-  prompt: string;
-}
-
-interface ExtractedData {
   practiceName: string;
-  voiceGender: "female" | "male";
-  systemPrompt: string;
+  phoneNumber: string;
+  voiceGender?: "female" | "male";
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: CreateDemoRequest = await request.json();
 
-    if (!body.prompt?.trim() || body.prompt.trim().length < 10) {
+    if (!body.practiceName?.trim()) {
       return NextResponse.json(
-        { error: "Please describe your practice and what you'd like your AI to do." },
+        { error: "Practice name is required" },
         { status: 400 }
       );
     }
 
-    const userPrompt = body.prompt.trim();
+    const phoneDigits = (body.phoneNumber || "").replace(/\D/g, "");
+    if (phoneDigits.length < 10) {
+      return NextResponse.json(
+        { error: "A valid phone number is required" },
+        { status: 400 }
+      );
+    }
 
-    // Single Claude call: extract practice name + voice gender + generate system prompt
+    const practiceName = body.practiceName.trim();
+    const voiceGender = body.voiceGender === "male" ? "male" : "female";
+
+    // Generate custom dental receptionist system prompt with Claude
     const claudeResponse = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
-      max_tokens: 1536,
+      max_tokens: 1024,
       messages: [
         {
           role: "user",
-          content: `You are an expert at creating AI receptionist system prompts for dental practices. A dental practice owner has described their practice and what they want their AI receptionist to do. Your job is to:
+          content: `You are an expert at creating AI receptionist system prompts for dental practices. Generate a custom system prompt for this dental practice:
 
-1. Extract the practice name from their description (if not explicitly mentioned, create a reasonable default like "Your Dental Practice")
-2. Detect voice gender preference if mentioned (male or female — default to female if not specified)
-3. Generate a custom system prompt tailored to what they described
+Dental Practice Name: "${practiceName}"
 
-Here's what the practice owner wrote:
-"""
-${userPrompt}
-"""
+This receptionist answers phone calls for this dental practice. The goal is to book patient appointments, answer insurance questions, and handle dental emergencies. Here is what you need to know:
 
-DENTAL CONTEXT (to inform the system prompt):
 Primary goal: ${DENTAL_KNOWLEDGE.primaryGoal}
 Information to gather from callers: ${DENTAL_KNOWLEDGE.keyInfo}
-Common caller scenarios: ${DENTAL_KNOWLEDGE.scenarios}
-Pricing guidance: ${DENTAL_KNOWLEDGE.pricingBehavior}
+Common caller scenarios to handle: ${DENTAL_KNOWLEDGE.scenarios}
+How to handle pricing questions: ${DENTAL_KNOWLEDGE.pricingBehavior}
 Scheduling notes: ${DENTAL_KNOWLEDGE.schedulingNotes}
 
-SYSTEM PROMPT REQUIREMENTS:
-1. Greet callers warmly using the practice name
-2. Sound like a real human dental receptionist — use contractions, casual phrasing, warm tone
-3. Follow the dental booking flow — ask ONE question at a time in natural conversational order
-4. Always work toward the primary goal: booking the appointment
-5. Handle dental scenarios naturally — be especially empathetic with pain/emergency patients
-6. Never make up specific prices — use the pricing guidance
-7. Keep every response to 1-3 sentences max (this is a phone call)
-8. If caller asks something outside knowledge, offer to have a team member call back
-9. Always capture caller's name and callback number before ending
-10. Never mention being AI unless directly asked
-11. Use natural filler words ("sure", "absolutely", "of course") sparingly
-12. Use emotion tags like [warm], [reassuring], [enthusiastic] where appropriate
-13. Match caller energy — upbeat with upbeat callers, calm with concerned ones
-14. Tailor the tone to what the practice owner described above
+The system prompt you generate must:
 
-Respond with ONLY a valid JSON object in this exact format — no markdown fences, no explanation:
-{"practiceName":"...","voiceGender":"female","systemPrompt":"..."}`,
+1. Greet callers warmly using the practice name: "${practiceName}"
+2. Sound like a real human dental receptionist — use contractions, casual phrasing, and a friendly, reassuring tone
+3. Follow the dental-specific booking flow above — ask the right questions in a natural conversational order, not all at once
+4. Ask ONE question at a time, wait for the answer, then ask the next
+5. Always work toward the primary goal: booking an appointment — prioritize this above all else in every conversation
+6. Handle the common dental scenarios listed above naturally — be especially empathetic with patients in pain or dental emergencies
+7. Use the pricing guidance above when pricing comes up — never make up specific prices
+8. Keep every response to 1-3 sentences max — this is a phone call, not an email
+9. If the caller asks something outside your knowledge, say "Let me have someone from our team get back to you on that — can I grab your name and number?"
+10. Always capture the caller's name and callback number before ending the call
+11. Never mention being AI unless directly asked
+12. Never fabricate information about the practice — don't make up dentist names, office hours, or specific services not mentioned
+13. Match the caller's energy level — if they're upbeat, be upbeat; if they're concerned, be calm and reassuring
+14. Use natural filler words occasionally (like "sure," "absolutely," "of course," "great") to sound more human
+15. Inject light, appropriate wit when the conversation allows — keep it warm and professional
+16. Show genuine enthusiasm when a patient wants to book or is interested in a service
+17. Use emotion tags like [warm], [reassuring], [enthusiastic] in appropriate places to guide vocal delivery
+18. When a patient describes pain or an emergency, respond with genuine warmth and concern — slow your pace, use a softer tone
+19. When a patient wants to book or is excited about a service, match their energy with real enthusiasm
+20. Vary your speaking pace naturally — don't speak at the same speed throughout the call
+
+Return ONLY the system prompt text. No markdown formatting, no explanations, no quotation marks wrapping it.`,
         },
       ],
     });
 
-    const rawText =
+    const systemPrompt =
       claudeResponse.content[0].type === "text"
-        ? claudeResponse.content[0].text
+        ? claudeResponse.content[0].text.trim()
         : "";
-
-    if (!rawText) {
-      throw new Error("Failed to generate system prompt");
-    }
-
-    // Parse JSON response, tolerating possible code fences
-    let extracted: ExtractedData;
-    try {
-      const cleaned = rawText
-        .replace(/^```(?:json)?\s*/i, "")
-        .replace(/\s*```\s*$/, "")
-        .trim();
-      extracted = JSON.parse(cleaned);
-    } catch {
-      console.error("Failed to parse Claude JSON:", rawText.slice(0, 500));
-      throw new Error("Failed to parse AI response. Please try again.");
-    }
-
-    const practiceName = extracted.practiceName?.trim() || "Your Dental Practice";
-    const voiceGender = extracted.voiceGender === "male" ? "male" : "female";
-    const systemPrompt = extracted.systemPrompt?.trim();
 
     if (!systemPrompt) {
       throw new Error("Failed to generate system prompt");
