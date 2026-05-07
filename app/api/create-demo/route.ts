@@ -214,6 +214,7 @@ Return ONLY the system prompt text. No markdown formatting, no explanations, no 
         backgroundSpeechDenoisingPlan: {
           smartDenoisingPlan: { enabled: true },
         },
+        ...(voiceGender === "male" ? { backgroundSound: "office" } : {}),
         firstMessage: `Thanks for calling ${practiceName}, how can I help you today?`,
         firstMessageMode: "assistant-speaks-first",
       }),
